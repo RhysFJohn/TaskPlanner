@@ -19,6 +19,8 @@ label{
   font-size: 2em;
   color: black;
   text-shadow: 1px 1px #ffffff;
-  /* padding-right: 15px;
-  background-color: rgba(130, 0, 255, 0.25) */
+}
+
+.card{
+  border: 3px inset #8200ff;
 }

@@ -4,7 +4,7 @@ function ValidateTaskForm(){
   let x = document.forms["myTaskForm"]["name"].value;
   let y = document.forms["myTaskForm"]["description"].value;
   let z = document.forms["myTaskForm"]["assignee"].value;
-  let a = document.forms["myTaskForm"]["dueDate"].value;
+  document.forms["myTaskForm"]["dueDate"].value;
 
   if (x = "" && x.length >= maxchar ){
     alert("Name of Assigner must be filled out and below 20 characters");
