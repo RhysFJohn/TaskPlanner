@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/CSS/index.css" />
     <title>Task Planner</title>
   </head>
+
   <body>
     <nav class="navbar navbar-dark bg-dark">
       <div class="container-fluid justify-content-center">
@@ -26,31 +27,38 @@
     </nav>
 
     <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
+      <div class="row justify-content-between">
+        <div class="col-md-8">
+          <!-- form for tasks -->
           <form class="taskForm" name="myTaskForm" id="mainTForm">
             <div class="form-row justify-content-center">
               <div class="form-group col-md-6">
+                <!-- task name input -->
                 <label for="inputTaskName">Task Name</label>
-                <input type="text" name="taskname" class="form-control" id="inputTaskName" placeholder="Name of Assigner" required/>
+                <input type="text" name="taskname" class="form-control" id="inputTaskName" placeholder="Name of Task" required/>
               </div>
               <div class="form-group col-md-6">
+                <!-- name of person assigning the task -->
                 <label for="inputName">Name</label>
                 <input type="text" name="name" class="form-control" id="inputName" placeholder="Name of Assigner" required/>
               </div>
               <div class="form-group col-md-6">
+                <!-- description of task -->
                 <label for="inputDesc">Description</label>
                 <input type="text" name="description" class="form-control" id="inputDesc" placeholder="Description" required/>
               </div>
               <div class="form-group col-md-6">
+                <!-- name of person the task was assigned to -->
                 <label for="inputAssign">Assigned To</label>
                 <input type="text" name="assignee" class="form-control" id="inputAssignee" placeholder="Name of Assignee" required/>
               </div>
               <div class="form-group col-md-6">
+                <!-- due date of task -->
                 <label for="date">Due Date</label>
                 <input type="date" class="form-control" id="dueDate" name="dueDate"/>
               </div>
               <div class="form-group col-md-6">
+                <!-- how far along is the task -->
                 <label for="inputStatus">Status</label>
                 <select class="form-select" id="status" name="status" aria-label="Default select example">
                   <option selected value="ToDo">To Do</option>
@@ -65,12 +73,16 @@
           </form>
         </div>
 
-        <div class="col-sm-12">
-          
+        <div class="col-md-8">
+          <div class="card">
+            <div class="list-group border border-dark" id="slineOutput">
+              
+            </div>
+          </div>
         </div>
       </div> 
     </div>
-
+    <br>
     <div class="container">
       <div class="row" id="taskOutput">
         <!-- This is where the tasks are output -->

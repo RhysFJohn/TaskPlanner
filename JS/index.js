@@ -1,20 +1,32 @@
+// max characters for a value
 let mxchar = 20;
 
 let myTasks = [];
 let arrayBack = localStorage.getItem("myTasksArray");
 
+// validation for task form
+function validateTaskForm(){
+  let name = document.forms["myTaskForm"]["name"];
+  let descript = document.forms["myTaskForm"]["description"];
+  let assignee = document.forms["myTaskForm"]["assignee"];
 
-// function validation(){
-//   let name = document.forms["myTaskForm"]["name"];
-//   let descript = document.forms["myTaskForm"]["description"];
-//   let assignee = document.forms["myTaskForm"]["assignee"];
+  if(name.value == "" && name.value.length >= mxchar){
+    alert("Please enter a name below 20 characters");
+    name.focus();
+  }
 
-//   if(name.value == "" && name.value.length >= mxchar){
-//     window.alert("Please enter a name below 20 characters")
-//     return false
-//   }
-// }
+  if(descript.value == "" && descript.value.length >= mxchar){
+    alert("Please Enter a description below 20 characters");
+    descript.focus();
+  }
 
+  if(assignee.value == "" && assignee.value.length >= mxchar){
+    alert("Please Enter a description below 20 characters");
+    assignee.focus();
+  }
+  return false;
+}
+// when btn is clicked it will store the task in localstorage and then display it as a card below
 document.querySelector("#myBtn").addEventListener('click', function(){
   console.log("button was clicked");
 
@@ -27,13 +39,14 @@ document.querySelector("#myBtn").addEventListener('click', function(){
 
   // console.log(tname,abname,desc,atname,ddate,status);
 
-  validation()
+  // validation();
   storeTask(tname, abname, desc, atname, ddate, status);
   getandCreate();
 
   document.getElementById("mainTForm").reset();
 });
 
+// stores task within array and then turns the values into strings
 function storeTask(tname, abname, desc, atname, ddate, status){
   let taskObject = {
     "TaskName" : tname,
@@ -48,10 +61,13 @@ function storeTask(tname, abname, desc, atname, ddate, status){
 
   localStorage.setItem("myTasksArray", JSON.stringify(myTasks));
 }
-
+// this function displays the cards
 function getandCreate(){
   let mySect = document.querySelector("#taskOutput");
+  // let mySect2 = document.querySelector('#slineOutput');
   mySect.innerHTML = "";
+  // mySect2 = "";
+
   for(x in myTasks){
     let taskHTML = `<div class="col-md-3">
     <div class="card">
@@ -95,9 +111,19 @@ function getandCreate(){
     </div>
   </div>`
     mySect.innerHTML += taskHTML;
+
+  //   let slineHTML = `<div class="list-group-item list-group-item-action">
+  //   <div class="d-flex w-100 justify-content-between">
+  //     <h5 class="mb-1"> Task for ${myTasks[x]['A`ssignedTo']}</h5>
+  //     <small class="text-muted">${myTasks[x]['DueDate']}</small>
+  //   </div>
+  //   <p class="mb-1">${myTasks[x]['TaskName']}</p>
+  //   <small class="text-muted">${myTasks[x]['Description']}</small>
+  // </div>`
+  //   mySect2.innerHTML += slineHTML;
   }
 }
-
+// When you exit the session this keeps the cards in localStorage
 if(arrayBack){
   myTasks = JSON.parse(arrayBack)
   getandCreate(myTasks)
