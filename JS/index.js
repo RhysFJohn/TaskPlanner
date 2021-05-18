@@ -1,24 +1,19 @@
 let mxchar = 20;
 
 let myTasks = [];
-let arrayback = localStorage.getItem("myTasksArray")
+let arrayBack = localStorage.getItem("myTasksArray");
 
 
-function ValidateName(){
-  let x = document.querySelector("#inputName").value;
+// function validation(){
+//   let name = document.forms["myTaskForm"]["name"];
+//   let descript = document.forms["myTaskForm"]["description"];
+//   let assignee = document.forms["myTaskForm"]["assignee"];
 
-  if (x = "" && x.length >= mxchar){
-    alert("Name of Assigner must be filled and below 20 characters")
-  }
-}
-
-function ValidateDesc(){
-  let y = document.querySelector("#inputDesc").value;
-
-  if (y = "" && y.length >= mxchar){
-    alert("Description must be filled and below 20 characters")
-  }
-}
+//   if(name.value == "" && name.value.length >= mxchar){
+//     window.alert("Please enter a name below 20 characters")
+//     return false
+//   }
+// }
 
 document.querySelector("#myBtn").addEventListener('click', function(){
   console.log("button was clicked");
@@ -32,6 +27,7 @@ document.querySelector("#myBtn").addEventListener('click', function(){
 
   // console.log(tname,abname,desc,atname,ddate,status);
 
+  validation()
   storeTask(tname, abname, desc, atname, ddate, status);
   getandCreate();
 
@@ -102,3 +98,9 @@ function getandCreate(){
   }
 }
 
+if(arrayBack){
+  myTasks = JSON.parse(arrayBack)
+  getandCreate(myTasks)
+}else {
+  myTasks = []
+}
