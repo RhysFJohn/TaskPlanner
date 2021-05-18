@@ -26,7 +26,7 @@
     </nav>
 
     <div class="container">
-      <form class="taskForm" name="myTaskForm">
+      <form class="taskForm" name="myTaskForm" id="mainTForm">
         <div class="form-row justify-content-center col-md-6">
           <div class="form-group col-md-6">
             <label for="inputTaskName">Task Name</label>
@@ -64,10 +64,16 @@
     </div>
 
     <div class="container">
-      <div class="row" id="TaskOutput">
+      <div class="row" id="taskOutput">
         <div class="col-md-3">
           <div class="card">
             <div class="card-header">Task</div>
+            <a href="#" class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Task Name</h5>
+              </div>
+              <p class="mb-1"></p>
+            </a>
             <a href="#" class="list-group-item list-group-item-action">
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">Assigned To:</h5>

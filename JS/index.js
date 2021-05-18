@@ -30,8 +30,13 @@ document.querySelector("#myBtn").addEventListener('click', function(){
   let ddate = document.forms["myTaskForm"]["dueDate"].value;
   let status = document.forms["myTaskForm"]["status"].value;
 
-  console.log(tname,abname,desc,atname,ddate,status)
-})
+  // console.log(tname,abname,desc,atname,ddate,status);
+
+  storeTask(tname, abname, desc, atname, ddate, status);
+  getandCreate();
+
+  document.getElementById("mainTForm").reset();
+});
 
 function storeTask(tname, abname, desc, atname, ddate, status){
   let taskObject = {
@@ -42,9 +47,58 @@ function storeTask(tname, abname, desc, atname, ddate, status){
     "DueDate" : ddate,
     "Status" : status
   }
+
+  myTasks.push(taskObject);
+
+  localStorage.setItem("myTasksArray", JSON.stringify(myTasks));
 }
 
-// function createCards(){
-
-// }
+function getandCreate(){
+  let mySect = document.querySelector("#taskOutput");
+  mySect.innerHTML = "";
+  for(x in myTasks){
+    let taskHTML = `<div class="col-md-3">
+    <div class="card">
+      <div class="card-header">Task</div>
+      <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Task Name</h5>
+        </div>
+        <p class="mb-1">${myTasks[x]['TaskName']}</p>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Assigned To:</h5>
+        </div>
+        <p class="mb-1">${myTasks[x]['AssignedTo']}</p>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Assigned By</h5>
+        </div>
+        <p class="mb-1">${myTasks[x]['AssignedBy']}</p>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Due Date</h5>
+        </div>
+        <p class="mb-1">${myTasks[x]['DueDate']}</p>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Status</h5>
+        </div>
+        <p class="mb-1">${myTasks[x]['Status']}</p>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Description</h5>
+        </div>
+        <p class="mb-1">${myTasks[x]['Description']}</p>
+      </a>
+    </div>
+  </div>`
+    mySect.innerHTML += taskHTML;
+  }
+}
 
