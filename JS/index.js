@@ -9,22 +9,19 @@ function validateTaskForm(){
   let name = document.forms["myTaskForm"]["name"];
   let descript = document.forms["myTaskForm"]["description"];
   let assignee = document.forms["myTaskForm"]["assignee"];
+  let date = document.forms["myTaskForm"]["dueDate"];
 
   if(name.value == "" && name.value.length >= mxchar){
     alert("Please enter a name below 20 characters");
     name.focus();
-  }
-
-  if(descript.value == "" && descript.value.length >= mxchar){
+  }else if(descript.value == "" && descript.value.length >= mxchar){
     alert("Please Enter a description below 20 characters");
     descript.focus();
-  }
-
-  if(assignee.value == "" && assignee.value.length >= mxchar){
+  }else if(assignee.value == "" && assignee.value.length >= mxchar){
     alert("Please Enter a description below 20 characters");
     assignee.focus();
   }
-  return false;
+  
 }
 // when btn is clicked it will store the task in localstorage and then display it as a card below
 document.querySelector("#myBtn").addEventListener('click', function(){
