@@ -120,15 +120,30 @@ function addTask(){
         </div>
         <p class="mb-1">${myTasks[x]['Description']}</p>
       </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-danger" id="myDelBtn">Delete Task</button>
+      </div>
     </div>
   </div>`
     mySect.innerHTML += taskHTML;
   }
 }
 
-// function to delete tasks
-function deleteTask(task){
+document.querySelector('#myDelBtn').addEventListener('click', function(){
+  console.log("button was clicked")
 
+  // deleteTask();
+})
+
+// function to delete tasks
+function deleteTask(){
+
+  //add to your card a button of some type....
+  //click event that is embedded in the button, which leads to this delete task function
+  //find out which element was clicked (event, parentNode)
+  //iterate through the array, find that object with matching ID and delete
+  //delete that element/card from page
+  
 }
 
 // function to update tasks
