@@ -22,6 +22,7 @@ document.querySelector("#myBtn").addEventListener('click', function(){
     getandCreate();
   } else {
     console.log("not valid")
+    alert("Please make sure everything ")
   }
 
   document.getElementById("mainTForm").reset();
@@ -31,7 +32,7 @@ document.querySelector("#myBtn").addEventListener('click', function(){
 function validateTaskForm(tName , aBName, desc, aTName, dueDate, status){
   let isAllValid = false;
 
-  if ((tName) && ((aTName.length > 0) && (aTName.length < 20)) && ((aBName.length > 0) && (aBName.length < 20)) && ((desc.length > 10) && (desc.length < 40)) && (dueDate) && (status)){
+  if ((tName) && ((aTName.length > 0) && (aTName.length < 20)) && ((aBName.length > 0) && (aBName.length < 20)) && ((desc.length > 0) && (desc.length < 40)) && (dueDate) && (status)){
     isAllValid = true;
     return isAllValid;
   }
@@ -79,6 +80,7 @@ function getandCreate(){
       <div class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Task Name</h5>
+          <small>${myTasks[x]['ID']}</small>
         </div>
         <p class="mb-1">${myTasks[x]['TaskName']}</p>
       </div>
