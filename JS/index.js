@@ -1,58 +1,60 @@
-// max characters for a value
-let mxchar = 20;
-
 let myTasks = [];
 let arrayBack = localStorage.getItem("myTasksArray");
 
-// validation for task form
-function validateTaskForm(){
-  let name = document.forms["myTaskForm"]["name"];
-  let descript = document.forms["myTaskForm"]["description"];
-  let assignee = document.forms["myTaskForm"]["assignee"];
-  let date = document.forms["myTaskForm"]["dueDate"];
 
-  if(name.value == "" && name.value.length >= mxchar){
-    alert("Please enter a name below 20 characters");
-    name.focus();
-  }else if(descript.value == "" && descript.value.length >= mxchar){
-    alert("Please Enter a description below 20 characters");
-    descript.focus();
-  }else if(assignee.value == "" && assignee.value.length >= mxchar){
-    alert("Please Enter a description below 20 characters");
-    assignee.focus();
-  }
-  
-}
 // when btn is clicked it will store the task in localstorage and then display it as a card below
 document.querySelector("#myBtn").addEventListener('click', function(){
   console.log("button was clicked");
 
-  let tname = document.forms["myTaskForm"]["taskname"].value;
-  let abname = document.forms["myTaskForm"]["name"].value;
-  let desc = document.forms["myTaskForm"]["description"].value;
-  let atname = document.forms["myTaskForm"]["assignee"].value;
-  let ddate = document.forms["myTaskForm"]["dueDate"].value;
-  let status = document.forms["myTaskForm"]["status"].value;
+  const tName = document.forms["myTaskForm"]["taskname"].value;
+  const aBName = document.forms["myTaskForm"]["name"].value;
+  const desc = document.forms["myTaskForm"]["description"].value;
+  const aTName = document.forms["myTaskForm"]["assignee"].value;
+  const dueDate = document.forms["myTaskForm"]["dueDate"].value;
+  const status = document.forms["myTaskForm"]["status"].value;
 
   // console.log(tname,abname,desc,atname,ddate,status);
 
   // validation();
-  storeTask(tname, abname, desc, atname, ddate, status);
+  createTaskObject(tName, aBName, desc, aTName, dueDate, status);
   getandCreate();
 
   document.getElementById("mainTForm").reset();
 });
 
-// stores task within array and then turns the values into strings
-function storeTask(tname, abname, desc, atname, ddate, status){
-  let taskObject = {
-    "TaskName" : tname,
-    "AssignedBy" : abname,
-    "Description" : desc,
-    "AssignedTo" : atname,
-    "DueDate" : ddate,
-    "Status" : status
+// validation for task form
+function validateTaskForm(tName , aBName, desc, aTName, dueDate, status){
+  let isAllValid = false;
+
+  if ((tName) && ((aTName.length > 0) && (aTName.length < 20)) && ((aBName.length > 0) && (aBName.length < 20)) && ((desc.length > 10) && (desc.length < 40)) && (dueDate) && (status)){
+    isAllValid = true;
+    return isAllValid;
   }
+  
+}
+
+// stores task within array and then turns the values into strings
+function createTaskObject(tName , aBName, desc, aTName, dueDate, status){
+  let ID = 0;
+
+  if (myTasks.length == 0){
+    ID = 1
+  } else {
+    let lastItemID = myTasks[myTasks.length-1].ID;
+    ID = lastItemID + 1
+  }
+  
+  let taskObject = {
+    "TaskName" : tName,
+    "AssignedBy" : aBName,
+    "Description" : desc,
+    "AssignedTo" : aTName,
+    "DueDate" : dueDate,
+    "Status" : status,
+    "ID" : ID
+  }
+
+  
 
   myTasks.push(taskObject);
 
@@ -69,42 +71,42 @@ function getandCreate(){
     let taskHTML = `<div class="col-md-3">
     <div class="card">
       <div class="card-header">Task</div>
-      <a href="#" class="list-group-item list-group-item-action">
+      <div class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Task Name</h5>
         </div>
         <p class="mb-1">${myTasks[x]['TaskName']}</p>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
+      </div>
+      <div class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Assigned To:</h5>
         </div>
         <p class="mb-1">${myTasks[x]['AssignedTo']}</p>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
+      </div>
+      <div class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Assigned By</h5>
         </div>
         <p class="mb-1">${myTasks[x]['AssignedBy']}</p>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
+      </div>
+      <div class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Due Date</h5>
         </div>
         <p class="mb-1">${myTasks[x]['DueDate']}</p>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
+      </div>
+      <div class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Status</h5>
         </div>
         <p class="mb-1">${myTasks[x]['Status']}</p>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
+      </div>
+      <div class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Description</h5>
         </div>
         <p class="mb-1">${myTasks[x]['Description']}</p>
-      </a>
+      </div>
     </div>
   </div>`
     mySect.innerHTML += taskHTML;
@@ -120,6 +122,28 @@ function getandCreate(){
   //   mySect2.innerHTML += slineHTML;
   }
 }
+
+// Function to view all tasks
+function getAllTasks(){
+
+}
+
+// function create tasks
+function addTask(task){
+
+
+}
+
+// function to delete tasks
+function deleteTask(task){
+
+}
+
+// function to update tasks
+function updateTask(){
+
+}
+
 // When you exit the session this keeps the cards in localStorage
 if(arrayBack){
   myTasks = JSON.parse(arrayBack)
