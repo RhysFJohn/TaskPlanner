@@ -19,10 +19,10 @@ document.querySelector("#myBtn").addEventListener('click', function(){
     console.log("all valid");
     createTaskObject(tName , aBName, desc, aTName, dueDate, status);
     console.log(myTasks)
-    getandCreate();
+    addTask();
   } else {
     console.log("not valid")
-    alert("Please make sure everything ")
+    alert("Please make sure everything is completed correctly")
   }
 
   document.getElementById("mainTForm").reset();
@@ -36,7 +36,6 @@ function validateTaskForm(tName , aBName, desc, aTName, dueDate, status){
     isAllValid = true;
     return isAllValid;
   }
-  
 }
 
 // stores task within array and then turns the values into strings
@@ -66,21 +65,28 @@ function createTaskObject(tName , aBName, desc, aTName, dueDate, status){
 
   localStorage.setItem("myTasksArray", JSON.stringify(myTasks));
 }
-// this function displays the cards
-function getandCreate(){
+
+// Function to view all tasks
+function getAllTasks(){
+
+}
+
+// function create tasks
+function addTask(){
   let mySect = document.querySelector("#taskOutput");
-  // let mySect2 = document.querySelector('#slineOutput');
   mySect.innerHTML = "";
-  // mySect2 = "";
 
   for(x in myTasks){
     let taskHTML = `<div class="col-md-3">
     <div class="card">
-      <div class="card-header">Task</div>
+      <div class="card-header justify-content-between">
+      <h5>Task</h5>
+      <small>${myTasks[x]['ID']}</small>
+      </div>
       <div class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Task Name</h5>
-          <small>${myTasks[x]['ID']}</small>
+          
         </div>
         <p class="mb-1">${myTasks[x]['TaskName']}</p>
       </div>
@@ -117,28 +123,7 @@ function getandCreate(){
     </div>
   </div>`
     mySect.innerHTML += taskHTML;
-
-  //   let slineHTML = `<div class="list-group-item list-group-item-action">
-  //   <div class="d-flex w-100 justify-content-between">
-  //     <h5 class="mb-1"> Task for ${myTasks[x]['A`ssignedTo']}</h5>
-  //     <small class="text-muted">${myTasks[x]['DueDate']}</small>
-  //   </div>
-  //   <p class="mb-1">${myTasks[x]['TaskName']}</p>
-  //   <small class="text-muted">${myTasks[x]['Description']}</small>
-  // </div>`
-  //   mySect2.innerHTML += slineHTML;
   }
-}
-
-// Function to view all tasks
-function getAllTasks(){
-
-}
-
-// function create tasks
-function addTask(task){
-
-
 }
 
 // function to delete tasks
