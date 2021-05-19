@@ -28,36 +28,36 @@
 
     <div class="container">
       <div class="row justify-content-between">
-        <div class="col-md-8">
+        <div class="col-md-6">
           <!-- form for tasks -->
           <form class="taskForm" name="myTaskForm" id="mainTForm">
             <div class="form-row justify-content-center">
-              <div class="form-group col-md-6">
+              <div class="form-group">
                 <!-- task name input -->
                 <label for="inputTaskName">Task Name</label>
                 <input type="text" name="taskname" class="form-control" id="inputTaskName" placeholder="Name of Task CharMax: 20" required/>
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group">
                 <!-- name of person assigning the task -->
                 <label for="inputName">Name</label>
                 <input type="text" name="name" class="form-control" id="inputName" placeholder="Name of Assigner CharMax: 20" required/>
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group">
                 <!-- description of task -->
                 <label for="inputDesc">Description</label>
                 <input type="text" name="description" class="form-control" id="inputDesc" placeholder="Description CharMax: 40" required/>
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group">
                 <!-- name of person the task was assigned to -->
                 <label for="inputAssign">Assigned To</label>
                 <input type="text" name="assignee" class="form-control" id="inputAssignee" placeholder="Name of Assignee CharMax: 20" required/>
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group">
                 <!-- due date of task -->
                 <label for="date">Due Date</label>
                 <input type="date" class="form-control" id="dueDate" name="dueDate"/>
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group">
                 <!-- how far along is the task -->
                 <label for="inputStatus">Status</label>
                 <select class="form-select" id="status" name="status" aria-label="Default select example">
@@ -81,9 +81,7 @@
           </div>
         </div>
       </div> 
-    </div>
-    <br>
-    <div class="container">
+      <br>
       <div class="row" id="taskOutput">
         <!-- This is where the tasks are output -->
         
