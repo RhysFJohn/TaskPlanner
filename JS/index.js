@@ -13,11 +13,16 @@ document.querySelector("#myBtn").addEventListener('click', function(){
   const dueDate = document.forms["myTaskForm"]["dueDate"].value;
   const status = document.forms["myTaskForm"]["status"].value;
 
-  // console.log(tname,abname,desc,atname,ddate,status);
+  let allValuesValid = validateTaskForm(tName, aBName, desc, aTName, dueDate, status);
 
-  // validation();
-  createTaskObject(tName, aBName, desc, aTName, dueDate, status);
-  getandCreate();
+  if (allValuesValid == true){
+    console.log("all valid");
+    createTaskObject(tName , aBName, desc, aTName, dueDate, status);
+    console.log(myTasks)
+    getandCreate();
+  } else {
+    console.log("not valid")
+  }
 
   document.getElementById("mainTForm").reset();
 });
