@@ -135,12 +135,13 @@ function deleteTask(event){
   btnClick.parentNode.parentNode.remove();
 
   for(item in myTasks){
-    if(myTasks[item].ID == myTasks[x]['ID']){
+    if(myTasks[item]['ID'] == myTasks[x]['ID']){
       myTasks.splice(item, 1);
+      localStorage.setItem("myTasksArray", JSON.stringify(myTasks));
     }
   }
 
-  localStorage.setItem("myTasksArray"), JSON.stringify(myTasks);
+  
 }
 
 // function to update tasks will do if I have time or in later update maybe
