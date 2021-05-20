@@ -1,5 +1,5 @@
-let myTasks = [];
-let arrayBack = localStorage.getItem("myTasksArray");
+let myTasks = []
+let arrayBack = localStorage.getItem("myTasksArray")
 
 
 // when btn is clicked it will store the task in localstorage and then display it as a card below
@@ -18,11 +18,10 @@ document.querySelector("#myBtn").addEventListener('click', function(){
   if (allValuesValid == true){
     console.log("all valid");
     createTaskObject(tName , aBName, desc, aTName, dueDate, status);
-    console.log(myTasks)
     addTask();
   } else {
     console.log("not valid")
-    alert("Please make sure everything is completed correctly")
+    alert("Please make sure everything is completed correctly!")
   }
 
   document.getElementById("mainTForm").reset();
@@ -77,16 +76,15 @@ function addTask(){
   mySect.innerHTML = "";
 
   for(x in myTasks){
-    let taskHTML = `<div class="col-md-3">
-    <div class="card">
-      <div class="card-header justify-content-between">
+    let taskHTML = `<div class="col-md-3" id="cardCol">
+    <div class="card text-dark bg-info">
+      <div class="card-header d-flex w-100 justify-content-between">
       <h5>Task</h5>
       <small>${myTasks[x]['ID']}</small>
       </div>
       <div class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Task Name</h5>
-          
         </div>
         <p class="mb-1">${myTasks[x]['TaskName']}</p>
       </div>
@@ -129,19 +127,24 @@ function addTask(){
   }
 }
 
-document.querySelector('#myDelBtn').addEventListener('click', function(){
-  console.log("button was clicked")
+// let delBtn = document.getElementById('myDelBtn')
 
-  // deleteTask();
-})
+// delBtn.addEventListener('click', (e) => {
+//   e.preventDefault();
+//   console.log("delete was clicked")
+// })
+
+// document.querySelector("#myDelBtn").addEventListener('click', function(){
+
+// })
 
 // function to delete tasks
 function deleteTask(){
 
   //add to your card a button of some type....
   //click event that is embedded in the button, which leads to this delete task function
-  //find out which element was clicked (event, parentNode)
-  //iterate through the array, find that object with matching ID and delete
+  //find out which element was clicked (event, parentNode) (Sort of understand, I sort of get how it works but do not fully understand how I implement it)
+  //iterate through the array, find that object with matching ID and delete (for loop?)
   //delete that element/card from page
   
 }
@@ -154,7 +157,7 @@ function updateTask(){
 // When you exit the session this keeps the cards in localStorage
 if(arrayBack){
   myTasks = JSON.parse(arrayBack)
-  getandCreate(myTasks)
+  addTask(myTasks)
 }else {
   myTasks = []
 }
