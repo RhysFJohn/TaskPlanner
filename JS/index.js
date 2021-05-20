@@ -16,11 +16,11 @@ document.querySelector("#myBtn").addEventListener('click', function(){
   let allValuesValid = validateTaskForm(tName, aBName, desc, aTName, dueDate, status);
 
   if (allValuesValid == true){
-    console.log("all valid");
+    console.log("Valid");
     createTaskObject(tName , aBName, desc, aTName, dueDate, status);
     addTask();
   } else {
-    console.log("not valid")
+    console.log("Invalid")
     alert("Please make sure everything is completed correctly!")
   }
 
@@ -57,8 +57,6 @@ function createTaskObject(tName , aBName, desc, aTName, dueDate, status){
     "Status" : status,
     "ID" : ID
   }
-
-  
 
   myTasks.push(taskObject);
 
@@ -119,7 +117,8 @@ function addTask(){
         <p class="mb-1">${myTasks[x]['Description']}</p>
       </div>
       <div class="card-footer">
-        <button type="button" class="btn btn-danger" id="myDelBtn">Delete Task</button>
+        <button type="button" class="btn btn-danger" onclick="deleteTask()" taskID="${myTasks[x]['ID']}">Delete Task</button>
+        <button type="button" class="btn btn-warning" onclick="updateTask()" taskID="${myTasks[x]['ID']}">Update Task</button>
       </div>
     </div>
   </div>`
@@ -127,37 +126,61 @@ function addTask(){
   }
 }
 
-// let delBtn = document.getElementById('myDelBtn')
-
-// delBtn.addEventListener('click', (e) => {
-//   e.preventDefault();
-//   console.log("delete was clicked")
-// })
-
-// document.querySelector("#myDelBtn").addEventListener('click', function(){
-
-// })
-
 // function to delete tasks
-function deleteTask(){
-
-  //add to your card a button of some type....
-  //click event that is embedded in the button, which leads to this delete task function
-  //find out which element was clicked (event, parentNode) (Sort of understand, I sort of get how it works but do not fully understand how I implement it)
-  //iterate through the array, find that object with matching ID and delete (for loop?)
-  //delete that element/card from page
+function deleteTask(event){
+  let btnClick = window.event.target;
   
+  let taskID = btnClick.attributes.taskID.value;
+
+  btnClick.parentNode.parentNode.remove();
+
+  for(item in myTasks){
+    if(myTasks[item].ID == myTasks[x]['ID']){
+      myTasks.splice(item, 1);
+    }
+  }
+
+  localStorage.setItem("myTasksArray"), JSON.stringify(myTasks);
 }
 
-// function to update tasks
-function updateTask(){
+// function to update tasks will do if I have time or in later update maybe
+function updateTask(event){
+  let btnClick = window.event.target;
+  let taskID = btnClick.attributes.taskID.value;
+
+  let currentTask;
+  let location;
+
+
+  for(item in myTasks){
+    if(myTasks[item].ID == myTasks[x]['ID']){
+      currentTask = myTasks[item]
+      location = item
+    }
+  }
+
+  document.forms["myTaskForm"]["assignee"].value = myTasks[x]['AssignedTo'];
+  document.forms["myTaskForm"]["description"].value = myTasks[x]['Description'];
+  document.forms["myTaskForm"]["dueDate"].value = myTasks[x]['DueDate'];
+  document.forms["myTaskForm"]["status"].value = myTasks[x]['Status'];
+
+  document.querySelector('#myBtn').outerHTML = `<button type="button" class="btn btn-primary" id="saveUpdate" onclick="updateTask()">Save Update</button>`
+}
+
+function saveUpdate(){
 
 }
 
 // When you exit the session this keeps the cards in localStorage
 if(arrayBack){
   myTasks = JSON.parse(arrayBack)
-  addTask(myTasks)
+  populatePage()
 }else {
   myTasks = []
+}
+
+function populatePage(){
+  for (let i = 0; i < myTasks.length; i++){
+    addTask(myTasks[i])
+  }
 }
