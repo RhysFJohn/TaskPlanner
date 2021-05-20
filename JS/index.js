@@ -75,54 +75,69 @@ function addTask(){
 
   for(x in myTasks){
     let taskHTML = `<div class="col-md-3" id="cardCol">
-    <div class="card text-dark bg-info">
-      <div class="card-header d-flex w-100 justify-content-between">
-      <h5>Task</h5>
-      <small>${myTasks[x]['ID']}</small>
-      </div>
-      <div class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Task Name</h5>
-        </div>
-        <p class="mb-1">${myTasks[x]['TaskName']}</p>
-      </div>
-      <div class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Assigned To:</h5>
-        </div>
-        <p class="mb-1">${myTasks[x]['AssignedTo']}</p>
-      </div>
-      <div class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Assigned By</h5>
-        </div>
-        <p class="mb-1">${myTasks[x]['AssignedBy']}</p>
-      </div>
-      <div class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Due Date</h5>
-        </div>
-        <p class="mb-1">${myTasks[x]['DueDate']}</p>
-      </div>
-      <div class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Status</h5>
-        </div>
-        <p class="mb-1">${myTasks[x]['Status']}</p>
-      </div>
-      <div class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Description</h5>
-        </div>
-        <p class="mb-1">${myTasks[x]['Description']}</p>
-      </div>
-      <div class="card-footer">
-        <button type="button" class="btn btn-danger" onclick="deleteTask()" taskID="${myTasks[x]['ID']}">Delete Task</button>
-        <button type="button" class="btn btn-warning" onclick="updateTask()" taskID="${myTasks[x]['ID']}">Update Task</button>
-      </div>
-    </div>
-  </div>`
+                      <div class="card text-dark bg-info">
+                        <div class="card-header d-flex w-100 justify-content-between">
+                        <h5>Task</h5>
+                        <small>${myTasks[x]['ID']}</small>
+                        </div>
+                        <div class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Task Name</h5>
+                          </div>
+                          <p class="mb-1">${myTasks[x]['TaskName']}</p>
+                        </div>
+                        <div class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Assigned To:</h5>
+                          </div>
+                          <p class="mb-1">${myTasks[x]['AssignedTo']}</p>
+                        </div>
+                        <div class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Assigned By</h5>
+                          </div>
+                          <p class="mb-1">${myTasks[x]['AssignedBy']}</p>
+                        </div>
+                        <div class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Due Date</h5>
+                          </div>
+                          <p class="mb-1">${myTasks[x]['DueDate']}</p>
+                        </div>
+                        <div class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Status</h5>
+                          </div>
+                          <p class="mb-1">${myTasks[x]['Status']}</p>
+                        </div>
+                        <div class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Description</h5>
+                          </div>
+                          <p class="mb-1">${myTasks[x]['Description']}</p>
+                        </div>
+                        <div class="card-footer">
+                          <button type="button" class="btn btn-danger" onclick="deleteTask()" taskID="${myTasks[x]['ID']}">Delete Task</button>
+                          <button type="button" class="btn btn-warning" onclick="updateTask()" taskID="${myTasks[x]['ID']}">Update Task</button>
+                        </div>
+                      </div>
+                    </div>`
     mySect.innerHTML += taskHTML;
+  }
+
+  let listCol = document.querySelector('#sLineOutput');
+  listCol.innerHTML = "";
+
+  for (y in myTasks){
+    let listHTML = `<div class="list-group-item list-group-action flex-column align-items-start" taskID="${myTasks[y]['ID']}">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Assigned To: ${myTasks[y]['AssignedTo']}</h5>
+                        <small>Due Date: ${myTasks[y]['DueDate']}</small>
+                      </div>
+                      <small>Status: ${myTasks[y]['Status']}</small>
+                    </div>`
+
+    listCol.innerHTML += listHTML;
   }
 }
 
@@ -141,7 +156,7 @@ function deleteTask(event){
     }
   }
 
-  
+  location.reload();
 }
 
 // function to update tasks will do if I have time or in later update maybe
@@ -160,16 +175,35 @@ function updateTask(event){
     }
   }
 
+  document.forms["myTaskForm"]["taskname"].value = myTasks[x]['TaskName'];
+  document.forms["myTaskForm"]["name"].value = myTasks[x]['AssignedBy'];
   document.forms["myTaskForm"]["assignee"].value = myTasks[x]['AssignedTo'];
   document.forms["myTaskForm"]["description"].value = myTasks[x]['Description'];
   document.forms["myTaskForm"]["dueDate"].value = myTasks[x]['DueDate'];
   document.forms["myTaskForm"]["status"].value = myTasks[x]['Status'];
 
-  document.querySelector('#myBtn').outerHTML = `<button type="button" class="btn btn-primary" id="saveUpdate" onclick="updateTask()">Save Update</button>`
+  document.querySelector('#myBtn').outerHTML = `<button type="button" class="btn btn-primary" id="saveUpdateID" onclick="saveUpdate()">Save Update</button>`
 }
 
 function saveUpdate(){
+  const tName = document.forms["myTaskForm"]["taskname"].value;
+  const aBName = document.forms["myTaskForm"]["name"].value;
+  const desc = document.forms["myTaskForm"]["description"].value;
+  const aTName = document.forms["myTaskForm"]["assignee"].value;
+  const dueDate = document.forms["myTaskForm"]["dueDate"].value;
+  const status = document.forms["myTaskForm"]["status"].value;
 
+  let allValuesValid = validateTaskForm(tName, aBName, desc, aTName, dueDate, status);
+
+  if (allValuesValid == true){
+    console.log("Valid");
+    createTaskObject(tName , aBName, desc, aTName, dueDate, status);
+    localStorage.setItem("myTasksArray",JSON.stringify(myTasks));
+    location.reload();
+  } else {
+    console.log("Invalid")
+    alert("Please make sure everything is completed correctly!")
+  }
 }
 
 // When you exit the session this keeps the cards in localStorage
