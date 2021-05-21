@@ -171,13 +171,13 @@ function deleteTask(event){
 
 // function to update tasks, will do if I have time or in later update maybe
 function updateTask(event){
-  let currentTask = {};
-  let btnClick = window.event.target;
+  let updateBtnClick = window.event.target;
+  let location;
 
-  for(let i = 0; i < myTasks.length; i++){
-    if(myTasks[i].ID == myTasks[x]['ID']){
-      currentTask = myTasks[i]
-      // location = item
+  for(let item = 0; item < myTasks.length; item++){
+    if(myTasks[item]['ID'] == myTasks[x]['ID']){
+      myTasks[item];
+      location = item;
     }
   }
 
@@ -188,7 +188,11 @@ function updateTask(event){
   document.forms["myTaskForm"]["dueDate"].value = myTasks[x]['DueDate'];
   document.forms["myTaskForm"]["status"].value = myTasks[x]['Status'];
 
-  document.querySelector('#myBtn').outerHTML = `<button type="button" class="btn btn-primary" id="saveUpdateID" onclick="saveUpdate()">Save Update</button>`
+  document.querySelector('#myBtn').outerHTML = `<button type="button" class="btn btn-primary" id="saveBtn">Save Update</button>`
+
+  document.querySelector('#saveBtn').addEventListener('click', function(){
+    saveUpdate();
+  })
 }
 
 function saveUpdate(){
@@ -199,17 +203,20 @@ function saveUpdate(){
   const dueDate = document.forms["myTaskForm"]["dueDate"].value;
   const status = document.forms["myTaskForm"]["status"].value;
 
-  let allValuesValid = validateTaskForm(tName, aBName, desc, aTName, dueDate, status);
-
-  if (allValuesValid == true){
-    console.log("Valid");
-    createTaskObject(tName , aBName, desc, aTName, dueDate, status);
-    localStorage.setItem("myTasksArray", JSON.stringify(myTasks));
-    location.reload();
-  } else {
-    console.log("Invalid")
-    alert("Please make sure everything is completed correctly!")
+  taskObject = {
+    "TaskName" : tName,
+    "AssignedBy" : aBName,
+    "Description" : desc,
+    "AssignedTo" : aTName,
+    "DueDate" : dueDate,
+    "Status" : status,
+    // there is an error happening ln 214 ID is not defined
+    "ID" : ID
   }
+  // push object to array
+  myTasks[location] = taskObject;
+
+  localStorage.setItem("myTasksArray", JSON.stringify(myTasks));
 }
 
 // When you exit the session this keeps the cards in localStorage
