@@ -116,7 +116,7 @@ function addTask(){
                           </div>
                           <p class="mb-1">${myTasks[x]['Description']}</p>
                         </div>
-                        <div class="card-footer">
+                        <div class="card-footer d-flex w-100 justify-content-between">
                           <button type="button" class="btn btn-danger" onclick="deleteTask()" taskID="${myTasks[x]['ID']}">Delete Task</button>
                           <button type="button" class="btn btn-warning" onclick="updateTask()" taskID="${myTasks[x]['ID']}">Update Task</button>
                         </div>
@@ -131,10 +131,13 @@ function addTask(){
   for (y in myTasks){
     let listHTML = `<div class="list-group-item list-group-action flex-column align-items-start" taskID="${myTasks[y]['ID']}">
                       <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Assigned To: ${myTasks[y]['AssignedTo']}</h5>
+                        <h6 class="mb-1">${myTasks[x]['TaskName']} for ${myTasks[y]['AssignedTo']}</h6>
                         <small>Due Date: ${myTasks[y]['DueDate']}</small>
                       </div>
+                      <div class="d-flex w-100 justify-content-between">
+                      <h6 class="mb-1">Desc: ${myTasks[x]['Description']}</h6>
                       <small>Status: ${myTasks[y]['Status']}</small>
+                      </div>
                     </div>`
 
     listCol.innerHTML += listHTML;
@@ -198,7 +201,7 @@ function saveUpdate(){
   if (allValuesValid == true){
     console.log("Valid");
     createTaskObject(tName , aBName, desc, aTName, dueDate, status);
-    localStorage.setItem("myTasksArray",JSON.stringify(myTasks));
+    localStorage.setItem("myTasksArray", JSON.stringify(myTasks));
     location.reload();
   } else {
     console.log("Invalid")
