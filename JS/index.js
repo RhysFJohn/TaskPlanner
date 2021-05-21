@@ -47,7 +47,7 @@ function createTaskObject(tName , aBName, desc, aTName, dueDate, status){
   if (myTasks.length == 0){
     ID = 1
   } else {
-    let lastItemID = myTasks[myTasks.length-1].ID;
+    let lastItemID = myTasks[myTasks.length-1]['ID'];
     ID = lastItemID + 1
   }
   // object creation 
@@ -130,7 +130,7 @@ function addTask(){
     // append the card to the id output
     mySect.innerHTML += taskHTML;
   }
-  // variable equal to particular id where the output would go. refer to index.html ln86
+  // variable equal to particular id where the output would go. refer to index.html ln77
   let listCol = document.querySelector('#sLineOutput');
   // it would be empty at first
   listCol.innerHTML = "";
@@ -152,7 +152,7 @@ function addTask(){
 }
 
 // function to delete tasks
-function deleteTask(event){
+function deleteTask(){
   // variable targeting specific ID
   let btnClick = window.event.target;
 
@@ -213,7 +213,6 @@ function saveUpdate(taskID, location){
     "AssignedTo" : aTName,
     "DueDate" : dueDate,
     "Status" : status,
-    // there is an error happening ln 214 ID is not defined
     "ID" : taskID
   }
   // push object to array
