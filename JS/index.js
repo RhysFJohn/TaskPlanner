@@ -169,8 +169,9 @@ function deleteTask(event){
   location.reload();
 }
 
-// function to update tasks will do if I have time or in later update maybe
+// function to update tasks, will do if I have time or in later update maybe
 function updateTask(event){
+  let currentTask = {};
   let btnClick = window.event.target;
 
   for(let i = 0; i < myTasks.length; i++){
