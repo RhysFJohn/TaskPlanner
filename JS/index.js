@@ -173,9 +173,10 @@ function deleteTask(event){
 function updateTask(event){
   let updateBtnClick = window.event.target;
   let location;
+  let taskID = myTasks[x]['ID'];
 
   for(let item = 0; item < myTasks.length; item++){
-    if(myTasks[item]['ID'] == myTasks[x]['ID']){
+    if(myTasks[item]['ID'] == taskID){
       myTasks[item];
       location = item;
     }
@@ -191,11 +192,13 @@ function updateTask(event){
   document.querySelector('#myBtn').outerHTML = `<button type="button" class="btn btn-primary" id="saveBtn">Save Update</button>`
 
   document.querySelector('#saveBtn').addEventListener('click', function(){
-    saveUpdate();
+    saveUpdate(taskID, location);
   })
+  
+  
 }
 
-function saveUpdate(){
+function saveUpdate(taskID, location){
   const tName = document.forms["myTaskForm"]["taskname"].value;
   const aBName = document.forms["myTaskForm"]["name"].value;
   const desc = document.forms["myTaskForm"]["description"].value;
@@ -211,12 +214,13 @@ function saveUpdate(){
     "DueDate" : dueDate,
     "Status" : status,
     // there is an error happening ln 214 ID is not defined
-    "ID" : ID
+    "ID" : taskID
   }
   // push object to array
   myTasks[location] = taskObject;
 
   localStorage.setItem("myTasksArray", JSON.stringify(myTasks));
+  document.location.reload();
 }
 
 // When you exit the session this keeps the cards in localStorage
