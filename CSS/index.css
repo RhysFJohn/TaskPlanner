@@ -24,3 +24,9 @@ label{
 .card{
   border: 3px inset #8200ff;
 }
+
+.foot{
+  font-family: 'Kaushan Script', fantasy;
+  font-size: 1.125em;
+  background-color: aliceblue;
+}
