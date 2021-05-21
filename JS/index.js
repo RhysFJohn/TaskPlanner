@@ -2,8 +2,9 @@ let myTasks = []
 let arrayBack = localStorage.getItem("myTasksArray")
 
 
-// when btn is clicked it will store the task in localstorage and then display it as a card below
+// when btn is clicked it will store the task in localstorage and then display it as a card below and on the side
 document.querySelector("#myBtn").addEventListener('click', function(){
+  // Just to make sure button is wokring
   console.log("button was clicked");
 
   const tName = document.forms["myTaskForm"]["taskname"].value;
@@ -13,24 +14,26 @@ document.querySelector("#myBtn").addEventListener('click', function(){
   const dueDate = document.forms["myTaskForm"]["dueDate"].value;
   const status = document.forms["myTaskForm"]["status"].value;
 
+   // variable to call function
   let allValuesValid = validateTaskForm(tName, aBName, desc, aTName, dueDate, status);
 
+  // if statement saying if all values are valid then add task otherwise alert the user to complete everything correctly
   if (allValuesValid == true){
     console.log("Valid");
     createTaskObject(tName , aBName, desc, aTName, dueDate, status);
     addTask();
   } else {
     console.log("Invalid")
-    alert("Please make sure everything is completed correctly!")
+    alert("Please make sure everything is completed correctly!\nTask Name must be filled\nName must be less than 20 characters\nDescription must be less than 40 characters\nAssigned to must be less than 20 characters\nDue Date and Status must be completed.")
   }
-
+  // resets form when the button is click for sanitation
   document.getElementById("mainTForm").reset();
 });
 
 // validation for task form
 function validateTaskForm(tName , aBName, desc, aTName, dueDate, status){
   let isAllValid = false;
-
+  // if statement stating if the requirements are matching to this then return true
   if ((tName) && ((aTName.length > 0) && (aTName.length < 20)) && ((aBName.length > 0) && (aBName.length < 20)) && ((desc.length > 0) && (desc.length < 40)) && (dueDate) && (status)){
     isAllValid = true;
     return isAllValid;
@@ -40,14 +43,14 @@ function validateTaskForm(tName , aBName, desc, aTName, dueDate, status){
 // stores task within array and then turns the values into strings
 function createTaskObject(tName , aBName, desc, aTName, dueDate, status){
   let ID = 0;
-
+  // if tasks array is equal to 0 make ID 1 otherwise add a new 1
   if (myTasks.length == 0){
     ID = 1
   } else {
     let lastItemID = myTasks[myTasks.length-1].ID;
     ID = lastItemID + 1
   }
-  
+  // object creation 
   let taskObject = {
     "TaskName" : tName,
     "AssignedBy" : aBName,
@@ -57,22 +60,24 @@ function createTaskObject(tName , aBName, desc, aTName, dueDate, status){
     "Status" : status,
     "ID" : ID
   }
-
+  // push object to array
   myTasks.push(taskObject);
 
   localStorage.setItem("myTasksArray", JSON.stringify(myTasks));
 }
 
 // Function to view all tasks
-function getAllTasks(){
+// function getAllTasks(){
 
-}
+// }
 
 // function create tasks
 function addTask(){
+  // variable equal to particular id where the output would go. refer to index.html ln86
   let mySect = document.querySelector("#taskOutput");
+  // it would be empty at first
   mySect.innerHTML = "";
-
+  // for loop to loop through each key value in objects to fill them from the object creation
   for(x in myTasks){
     let taskHTML = `<div class="col-md-3" id="cardCol">
                       <div class="card text-dark bg-info">
@@ -122,59 +127,56 @@ function addTask(){
                         </div>
                       </div>
                     </div>`
+    // append the card to the id output
     mySect.innerHTML += taskHTML;
   }
-
+  // variable equal to particular id where the output would go. refer to index.html ln86
   let listCol = document.querySelector('#sLineOutput');
+  // it would be empty at first
   listCol.innerHTML = "";
 
   for (y in myTasks){
     let listHTML = `<div class="list-group-item list-group-action flex-column align-items-start" taskID="${myTasks[y]['ID']}">
                       <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-1">${myTasks[x]['TaskName']} for ${myTasks[y]['AssignedTo']}</h6>
+                        <h6 class="mb-1">${myTasks[y]['TaskName']} for ${myTasks[y]['AssignedTo']}</h6>
                         <small>Due Date: ${myTasks[y]['DueDate']}</small>
                       </div>
                       <div class="d-flex w-100 justify-content-between">
-                      <h6 class="mb-1">Desc: ${myTasks[x]['Description']}</h6>
+                      <h6 class="mb-1">Desc: ${myTasks[y]['Description']}</h6>
                       <small>Status: ${myTasks[y]['Status']}</small>
                       </div>
                     </div>`
-
+    // append the card to the id output
     listCol.innerHTML += listHTML;
   }
 }
 
 // function to delete tasks
 function deleteTask(event){
+  // variable targeting specific ID
   let btnClick = window.event.target;
-  
-  let taskID = btnClick.attributes.taskID.value;
 
+  // remove 2 parentNodes above target
   btnClick.parentNode.parentNode.remove();
-
+  // iterate through array finding the card connected to that specific ID and then remove it using the splice method, and update the object array
   for(item in myTasks){
     if(myTasks[item]['ID'] == myTasks[x]['ID']){
       myTasks.splice(item, 1);
       localStorage.setItem("myTasksArray", JSON.stringify(myTasks));
     }
   }
-
+  // reload page 
   location.reload();
 }
 
 // function to update tasks will do if I have time or in later update maybe
 function updateTask(event){
   let btnClick = window.event.target;
-  let taskID = btnClick.attributes.taskID.value;
 
-  let currentTask;
-  let location;
-
-
-  for(item in myTasks){
-    if(myTasks[item].ID == myTasks[x]['ID']){
-      currentTask = myTasks[item]
-      location = item
+  for(let i = 0; i < myTasks.length; i++){
+    if(myTasks[i].ID == myTasks[x]['ID']){
+      currentTask = myTasks[i]
+      // location = item
     }
   }
 
