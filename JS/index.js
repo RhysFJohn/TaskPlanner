@@ -170,7 +170,7 @@ function deleteTask(event){
 }
 
 // function to update tasks, will do if I have time or in later update maybe
-function updateTask(event){
+function updateTask(){
   let updateBtnClick = window.event.target;
   let location;
   let taskID = myTasks[x]['ID'];
